@@ -2,9 +2,11 @@
 import requests # not scratchapi2
 import time
 import gid
+from random import randint
 
 def do(user):
     offset=0
+    xxx=""
     while True:
         req=requests.get("https://api.scratch.mit.edu/users/{}/followers?limit=40&offset={}"
                          .format(user,offset))
@@ -17,5 +19,7 @@ def do(user):
         for u in j:
             print("{0} is {1}".format(u["id"],u["username"]))
             gid.save_user(u["id"], u["username"])
+            if randint(1,10)>7:
+                xxx=u["username"]
         time.sleep(1)
-            
+        return xxx
